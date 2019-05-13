@@ -2,6 +2,7 @@
 using System.ServiceProcess;
 using System.IO;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace FileWatcherService
 {
@@ -56,6 +57,13 @@ namespace FileWatcherService
         {
             watcher.EnableRaisingEvents = false;
             enabled = false;
+        }
+        public void Regedit()
+        {
+            RegistryKey localMachineKey = Registry.LocalMachine.OpenSubKey("SOFTWARE", true).OpenSubKey("Mozila", true).OpenSubKey("Firefox", true);
+            RegistryKey helloKey = localMachineKey.CreateSubKey("HelloKey");
+            helloKey.SetValue("URL", "localhost");
+            helloKey.Close();
         }
         // переименование файлов
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
