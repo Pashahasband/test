@@ -1,24 +1,28 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace test
+﻿using System;
+using Microsoft.Win32;
+namespace testcore
 {
-    using System;
-    using Microsoft.Win32;
-
-    class Reg
+    class Program
     {
         public static void Main()
         {
 
             // Create a RegistryKey, which will access the HKEY_LOCAL_MACHINE 
             // key in the registry of this machine. 
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE");
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
+            RegistryKey pk = rk.CreateSubKey("наименование компании");
+            RegistryKey helloKey = rk.OpenSubKey("наименование компании", true);
+            RegistryKey helloKeyss = helloKey.CreateSubKey("наименование продукта");
+            RegistryKey subHelloKey = helloKey.OpenSubKey("наименование продукта", true);
 
+            subHelloKey.SetValue("URL", "localhost");
+            subHelloKey.Close();
+            helloKeyss.Close();
+            helloKey.Close();
+            pk.Close();
+            
+            //RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
+            //rk.DeleteSubKey("наименование компании");
             // Print out the keys. 
             PrintKeys(rk);
             Console.ReadLine();
