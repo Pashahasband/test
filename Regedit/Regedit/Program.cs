@@ -6,7 +6,9 @@ namespace Regedit
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            RegeditHelper.SetRegistryKeyValue("URL", "localhost");
+
+            Console.ReadLine();
         }
     }
 }
