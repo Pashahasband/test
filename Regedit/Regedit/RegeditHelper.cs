@@ -5,7 +5,7 @@ using System.Security.AccessControl;
 
 namespace Regedit
 {
-    class RegeditHelper
+    public class RegeditHelper
     {
         public const string COMPANY_NAME = "CompanyName";
         public const string PRODUCT_NAME = "ProductName";
@@ -13,7 +13,7 @@ namespace Regedit
         // Приватный логгер для класса
         private static Logger log = LogManager.GetCurrentClassLogger();
 
-        public static void SetRegistryKeyValue(string keyName, string KeyValue)
+        public static void SetRegistryKeyValue(string keyName, string keyValue)
         {
             using (RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true))
             {
@@ -37,8 +37,8 @@ namespace Regedit
 
                     using (RegistryKey productRegKey = companyRegKey.OpenSubKey(PRODUCT_NAME, true))
                     {
-                        log.Debug($"Задаем значение для ключа {keyName} равным {KeyValue} в ветке {PRODUCT_NAME}.");
-                        productRegKey.SetValue(keyName, KeyValue);
+                        log.Debug($"Задаем значение для ключа {keyName} равным {keyValue} в ветке {PRODUCT_NAME}.");
+                        productRegKey.SetValue(keyName, keyValue);
                         log.Debug("Значение ключа установлено.");
 
                         RegistrySecurity rs = new RegistrySecurity();
