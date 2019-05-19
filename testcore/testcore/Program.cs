@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using System.Security;
+using System.Security.AccessControl;
 using Microsoft.Win32;
 namespace testcore
 {
@@ -16,18 +19,32 @@ namespace testcore
             RegistryKey subHelloKey = helloKey.OpenSubKey("наименование продукта", true);
 
             subHelloKey.SetValue("URL", "localhost");
+
+            string user = Environment.UserDomainName + "\\" + Environment.UserName;
+            RegistrySecurity rs = new RegistrySecurity();
+
+            rs.AddAccessRule(new RegistryAccessRule(user,
+                RegistryRights.ReadKey,
+                InheritanceFlags.None,
+                PropagationFlags.None,
+                AccessControlType.Allow));
+            subHelloKey.SetAccessControl(rs);
+
             subHelloKey.Close();
             helloKeyss.Close();
             helloKey.Close();
             pk.Close();
-            
-            //RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
-            //rk.DeleteSubKey("наименование компании");
-            // Print out the keys. 
+            // RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
+            // DeleteKey(rk);
             PrintKeys(rk);
             Console.ReadLine();
         }
-
+        static void DeleteKey(RegistryKey rkey)
+        {
+            RegistryKey rs = rkey.OpenSubKey("наименование компании", true);
+            rs.DeleteSubKey("наименование продукта");
+            rkey.DeleteSubKey("наименование компании");
+        }
         static void PrintKeys(RegistryKey rkey)
         {
 
