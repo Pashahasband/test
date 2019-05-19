@@ -12,12 +12,22 @@ namespace testcore
 
             // Create a RegistryKey, which will access the HKEY_LOCAL_MACHINE 
             // key in the registry of this machine. 
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
-            RegistryKey pk = rk.CreateSubKey("наименование компании");
-            RegistryKey helloKey = rk.OpenSubKey("наименование компании", true);
+
+
+
+
+            // RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
+            // AddKey(rk);
+            // DeleteKey(rk);
+            //PrintKeys(rk);
+            Console.ReadLine();
+        }
+        static void AddKeyAndRule(RegistryKey rkey)
+        {
+            RegistryKey pk = rkey.CreateSubKey("наименование компании");
+            RegistryKey helloKey = rkey.OpenSubKey("наименование компании", true);
             RegistryKey helloKeyss = helloKey.CreateSubKey("наименование продукта");
             RegistryKey subHelloKey = helloKey.OpenSubKey("наименование продукта", true);
-
             subHelloKey.SetValue("URL", "localhost");
 
             string user = Environment.UserDomainName + "\\" + Environment.UserName;
@@ -34,10 +44,7 @@ namespace testcore
             helloKeyss.Close();
             helloKey.Close();
             pk.Close();
-            // RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
-            // DeleteKey(rk);
-            PrintKeys(rk);
-            Console.ReadLine();
+
         }
         static void DeleteKey(RegistryKey rkey)
         {

@@ -12,4 +12,10 @@
     <PackageReference Include="NLog.InstallNLogConfig" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="C:\Users\Montana\.nuget\packages\nlog.config\4.6.3\contentFiles\any\any\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
